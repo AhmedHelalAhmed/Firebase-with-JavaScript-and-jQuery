@@ -13,13 +13,16 @@ firebase.initializeApp(config);
 
 
 
-//create firebase database reference
+// create firebase database reference
 var dbRef = firebase.database();
+// make collection with name contacts and refer to it
 var contactsRef = dbRef.ref('contacts');
 
 
 
 //load older conatcts as well as any newly added one...
+// fire n times where n is the old records stored to get the old one
+// fire when add new record also
 contactsRef.on("child_added", function (snap)
 {
     // console.log(snap);
@@ -30,7 +33,8 @@ contactsRef.on("child_added", function (snap)
 
 
 
-//save contact
+// save contact
+// fire when click with class add value
 document.querySelector('.addValue')
         .addEventListener("click", function (event)
         {
@@ -48,7 +52,9 @@ document.querySelector('.addValue')
                         zip: document.querySelector('#zip').value
                     }
                 };
+                // store to firebase
                 contactsRef.push(data);
+                //empty the form
                 contactForm.reset();
             } else
             {
@@ -56,7 +62,17 @@ document.querySelector('.addValue')
             }
         }, false);
 
-//prepare conatct object's HTML
+
+
+
+
+
+
+
+
+
+// prepare conatct object's HTML
+// render to frontend the new and the old data
 function contactHtmlFromObject(contact)
 {
     var html = '';

@@ -9,14 +9,26 @@ var config = {
     messagingSenderId: "648153450588"
 };
 firebase.initializeApp(config);
+
+
+
+
 //create firebase database reference
 var dbRef = firebase.database();
 var contactsRef = dbRef.ref('contacts');
+
+
+
 //load older conatcts as well as any newly added one...
 contactsRef.on("child_added", function(snap) {
-    console.log("added", snap.key(), snap.val());
+
     $('#contacts').append(contactHtmlFromObject(snap.val()));
 });
+
+
+
+
+
 //save contact
 $('.addValue').on("click", function( event ) {
     event.preventDefault();
